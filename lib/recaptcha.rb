@@ -55,6 +55,7 @@ module Recaptcha
     http_instance = http.new(uri.host, uri.port)
     http_instance.read_timeout = http_instance.open_timeout = options[:timeout] || DEFAULT_TIMEOUT
     http_instance.use_ssl = true if uri.port == 443
+    http_instance.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Get.new(uri.request_uri)
     http_instance.request(request).body
   end
